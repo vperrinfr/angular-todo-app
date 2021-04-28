@@ -9,8 +9,6 @@ RUN npm run build --prod
 
 # Stage 2
 FROM nginx:1.17.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-step /app/docs /usr/share/nginx/html
-# Expose port 8080 instead of 80
-RUN mkdir /etc/nginx/templates
-RUN touch /etc/nginx/templates/default.conf.template
-RUN echo "listen       ${NGINX_PORT};" >> /etc/nginx/templates/default.conf.template
+
